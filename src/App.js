@@ -11,6 +11,7 @@ import {
 
 class App extends React.Component {
   render() {
+    console.log('hello world!');
     return (
       <>
         <Router>

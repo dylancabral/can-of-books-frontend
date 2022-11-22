@@ -10,7 +10,27 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      books:[]
+    }
+  }
+
+  getBooks = async () => {
+    try{
+      let results = await axios.get(`${REACT_APP_SERVER}/books`);
+      this.setState({
+        books: results.data
+      })
+    }catch(error){
+      console.log('we have an error here', error.response.data)
+    }
+  }
   render() {
+    let books = this.state.books.map(book => (
+      <p>{books.title} is about {books.description} and we as a group have {books.status} it</p>
+    ))
     console.log('hello world!');
     return (
       <>

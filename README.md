@@ -11,9 +11,11 @@ Can of books is a databasing website that will store created book instances afte
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
-preoof of life
+proof of life
 integrate mongo
 communicate with api
+deploy to cloud
+
 
 
 ## Architecture
@@ -26,17 +28,18 @@ communicate with api
 
 ## Estimates
 <!-- See below -->
+start time 2pm 11-21-22
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 Time Estimates
 For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-Name of feature: ________________________________
+Name of feature: deploying sites and showing booka
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 6 hours
 
-Start time: _____
+Start time: 2pm
 
 Finish time: _____
 

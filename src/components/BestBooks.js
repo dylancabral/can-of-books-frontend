@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import {Carousel, Container } from 'react-bootstrap';
+import { Button, Carousel, Container } from 'react-bootstrap';
 import BookCards from './BookCard';
 import BookForm from './BookForm'
 
@@ -9,7 +9,8 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showForm: false
     }
   }
 
@@ -62,7 +63,7 @@ class BestBooks extends React.Component {
 
   //updates book obj with matching ids in mongo
   updateBook = async (bookToUpdate) => {
-    try{
+    try {
       let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
       let updatedBookObj = await axios.put(url, bookToUpdate);
 
@@ -72,7 +73,7 @@ class BestBooks extends React.Component {
       this.setState({
         books: updateBookArr
       });
-    }catch(err){
+    } catch (err) {
       console.log('ITS A TRAP!', err.response.data)
     }
   }
@@ -131,11 +132,16 @@ class BestBooks extends React.Component {
 
         {/* Add Form */}
         <Container>
-        <BookForm handleBookSubmit={this.handleBookSubmit}/>
-        {
+          <Button onClick={() => this.setState({ showForm: true })}>
+            Add Book
+          </Button>
+          {this.state.showForm &&
+            <BookForm handleBookSubmit={this.handleBookSubmit} />
+          }
+          {
             this.state.books.length > 0 &&
             <>
-            {/* makes cards that let you edit data for objects in mongo */}
+              {/* makes cards that let you edit data for objects in mongo */}
               <BookCards
                 books={this.state.books}
                 deleteBook={this.deleteBook}

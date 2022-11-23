@@ -25,7 +25,7 @@ class App extends React.Component {
     // let books = this.state.books.map(book => (
     //   <p>{books.title} is about {books.description} and we as a group have {books.status} it</p>
     // ));
-    console.log('hello world!');
+    // console.log('hello world!');
     return (
       <>
         <Container>

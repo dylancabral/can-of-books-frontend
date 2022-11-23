@@ -35,7 +35,7 @@ class UpdateBookForm extends React.Component {
             <Form.Label>Status</Form.Label>
             <Form.Control type="text" placeholder={this.props.book.status}/>
           </Form.Group>
-          <Button type="submit">Update Cat</Button>
+          <Button type="submit">Update Book</Button>
         </Form>
       </Container>
     )

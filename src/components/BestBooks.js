@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import { Button, Carousel, Container } from 'react-bootstrap';
+import {Carousel, Container } from 'react-bootstrap';
+import BookCards from './BookCard';
 import BookForm from './BookForm'
 
 
@@ -12,11 +13,12 @@ class BestBooks extends React.Component {
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  //REST FUNCTIONS//
+
+  //gets books from mongo
   getBooks = async () => {
     try {
       let results = await axios.get(`${process.env.REACT_APP_SERVER}/books`)
-      console.log(results.data);
       this.setState({
         books: results.data,
       });
@@ -25,13 +27,14 @@ class BestBooks extends React.Component {
     };
   }
 
+  //adds new book obj to mongo
   postBook = async (aBook) => {
     try {
       // make the request to add a book to my server
       // axios.post will return the book that was added to the database with the ID and version number
       // axios.post takes in 2 parameters: the URL endpoint, and the thing we want added:
       let bookThatWasAdded = await axios.post(`${process.env.REACT_APP_SERVER}/books`, aBook);
-      console.log(bookThatWasAdded);
+      // console.log(bookThatWasAdded);
       this.setState({
         books: [...this.state.books, bookThatWasAdded.data]
       });
@@ -40,9 +43,8 @@ class BestBooks extends React.Component {
     }
   }
 
+  //deletes book obj with matching ids in mongo
   deleteBook = async (id) => {
-    // ex URL:
-    // http://localhost:3001/books/637bceabc57c693faee21e8f
     try {
       let url = `${process.env.REACT_APP_SERVER}/books/${id}`;
       // do not assume that axios.delete() will return a value
@@ -58,6 +60,24 @@ class BestBooks extends React.Component {
     }
   }
 
+  //updates book obj with matching ids in mongo
+  updateBook = async (bookToUpdate) => {
+    try{
+      let url = `${process.env.REACT_APP_SERVER}/books/${bookToUpdate._id}`;
+      let updatedBookObj = await axios.put(url, bookToUpdate);
+
+      let updateBookArr = this.state.books.map(book => {
+        return book._id === bookToUpdate._id ? updatedBookObj.data : book;
+      });
+      this.setState({
+        books: updateBookArr
+      });
+    }catch(err){
+      console.log('ITS A TRAP!', err.response.data)
+    }
+  }
+
+  //on submit
   handleBookSubmit = (e) => {
     e.preventDefault();
     let newBook = {
@@ -66,15 +86,17 @@ class BestBooks extends React.Component {
       status: e.target.status.value,
     }
     this.postBook(newBook);
-    console.log(newBook);
+    // console.log(newBook);
 
   }
 
+  //checks if things worked correctly
   componentDidMount() {
     this.getBooks();
   }
 
   render() {
+    //maps through each item in books array (in state) and makes a new carousel item
     let carouselBooks = this.state.books.map((book) => (
       <Carousel.Item key={book._id}>
         <img
@@ -88,21 +110,15 @@ class BestBooks extends React.Component {
           <p>
             Book is About:{book.description}
           </p>
-          <Button
-            variant="dark"
-            onClick={() => this.deleteBook(book._id)}
-          >
-            Delete Book
-          </Button>
         </Carousel.Caption>
       </Carousel.Item>
     ))
-    /* TODO: render all the books in a Carousel */
 
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
+        {/* render Carousel */}
         {this.state.books.length > 0 ? (
           <Container>
             <Carousel>
@@ -112,9 +128,22 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :(</h3>
         )}
-        <BookForm
-          handleBookSubmit={this.handleBookSubmit}
-        />
+
+        {/* Add Form */}
+        <Container>
+        <BookForm handleBookSubmit={this.handleBookSubmit}/>
+        {
+            this.state.books.length > 0 &&
+            <>
+            {/* makes cards that let you edit data for objects in mongo */}
+              <BookCards
+                books={this.state.books}
+                deleteBook={this.deleteBook}
+                updateBook={this.updateBook}
+              />
+            </>
+          }
+        </Container>
       </>
     )
   }

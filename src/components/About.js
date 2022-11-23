@@ -9,10 +9,8 @@ class Profile extends Component {
       <>
         <p>Hey we made this site</p>
         <h3>
-          bunch of bullshit
+          bunch of bull
         </h3>
-
-
       </>
     )
 

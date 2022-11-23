@@ -64,7 +64,7 @@ Finish time: 2:15pm
 Actual time needed to complete: 1hr
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+<!-- Give credit (and a link) to other people or resources that helped you build this applicatin. -->
 
 Justin, Tammy, Brandon, Sheyna, DeShon, Don, mike, other cool kids
 

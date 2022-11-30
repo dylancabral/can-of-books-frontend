@@ -14,6 +14,7 @@ class Header extends React.Component {
           <NavItem>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
+            <Link to="/user">Profile</Link>
           </NavItem>
         </Navbar >
       </>

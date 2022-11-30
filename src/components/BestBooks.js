@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Carousel, Container } from 'react-bootstrap';
 import BookCards from './BookCard';
 import BookForm from './BookForm'
+import { withAuth0 } from '@auth0/auth0-react';
 
 
 class BestBooks extends React.Component {
@@ -18,11 +19,40 @@ class BestBooks extends React.Component {
 
   //gets books from mongo
   getBooks = async () => {
+    // if (this.props.auth0.isAuthenticated) {
+
+    //   // get the token from Auth0
+    //   const res = await this.props.auth0.getIdTokenClaims();
+
+    //   // extract the token from the response
+    //   // MUST use double underscore
+    //   const jwt = res.__raw;
+
+    //   // this is from the axios docs, we can send a config object to make our axios calls. We need it to send our token to the server:
+    //   let config = {
+    //     method: 'get',
+    //     baseURL: process.env.REACT_APP_SERVER,
+    //     url: '/books',
+    //     headers: {
+    //       "Authorization": `Bearer ${jwt}`
+    //     }
+    //   }
+    //   let bookResults = await axios(config);
+
+    //   this.setState({
+    //     books: bookResults,
+    //   });
+
+    //   // // Old way we are used to making axios requests:
+    //   // let url = `${process.env.REACT_APP_SERVER_URL}/books`;
+    //   // let bookResults = await axios.get(url);
+    // }
     try {
       let results = await axios.get(`${process.env.REACT_APP_SERVER}/books`)
       this.setState({
         books: results.data,
       });
+
     } catch (err) {
       console.log('we have an error', err.response.data)
     };
@@ -155,4 +185,4 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+export default withAuth0(BestBooks);

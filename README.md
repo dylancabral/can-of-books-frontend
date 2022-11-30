@@ -18,7 +18,7 @@ complete installation of database
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-React, axios, express, MongoDB, mongoose, 
+React, axios, express, MongoDB, mongoose, Auth0
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -27,6 +27,7 @@ React, axios, express, MongoDB, mongoose,
 11-21-2022 - Data base seeded and information rendered on page.
 11-22-2022 - Delete and add new data implemented.
 11-23-2022 - Update Data implemented.
+11-29-22 - Auth on front end
 
 ## Estimates
 <!-- See below -->
@@ -63,9 +64,21 @@ Finish time: 2:15pm
 
 Actual time needed to complete: 1hr
 
+### Name of feature: Auth
+
+Estimate of time needed to complete: 4 hours
+
+Start time: 1:45pm
+
+Finish time: 4:00pm
+
+Actual time needed to complete: 2:15hr
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this applicatin. -->
 
 Justin, Tammy, Brandon, Sheyna, DeShon, Don, mike, other cool kids
+
+![Agreement](./src/170852.jpg)
 
 ## Dedicated to Mike our fallen soldier

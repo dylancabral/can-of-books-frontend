@@ -23,7 +23,6 @@ class BestBooks extends React.Component {
       // get the token from Auth0
       const res = await this.props.auth0.getIdTokenClaims();
       // extract the token from the response
-      // MUST use double underscore
       const jwt = res.__raw;
       // this is from the axios docs, we can send a config object to make our axios calls. We need it to send our token to the server:
       let config = {
@@ -43,18 +42,25 @@ class BestBooks extends React.Component {
 
   //adds new book obj to mongo
   postBook = async (aBook) => {
-    try {
-      // make the request to add a book to my server
-      // axios.post will return the book that was added to the database with the ID and version number
-      // axios.post takes in 2 parameters: the URL endpoint, and the thing we want added:
-      let bookThatWasAdded = await axios.post(`${process.env.REACT_APP_SERVER}/books`, aBook);
-      // console.log(bookThatWasAdded);
-      this.setState({
-        books: [...this.state.books, bookThatWasAdded.data]
-      });
-    } catch (err) {
-      console.log('We have an error: ', err.response.data);
-    }
+      if (this.props.auth0.isAuthenticated) {
+        const res = await this.props.auth0.getIdTokenClaims();
+        const jwt = res.__raw;
+
+        let config = {
+          method: 'post',
+          baseURL: process.env.REACT_APP_SERVER,
+          url: '/books',
+          headers: {
+            "Authorization": `Bearer ${jwt}`
+          },
+          data: aBook
+        }
+
+        let bookThatWasAdded = await axios(config);
+        this.setState({
+          books: [...this.state.books, bookThatWasAdded.data]
+        });
+      }
   }
 
   //deletes book obj with matching ids in mongo

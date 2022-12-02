@@ -3,8 +3,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import BestBooks from './components/BestBooks';
 import About from './components/About'
-import LoginButton from './components/LoginButton';
-import LogoutButton from './components/LogoutButton';
 import Profile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { withAuth0 } from '@auth0/auth0-react';
@@ -17,21 +15,19 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}
-        {this.props.auth0.isAuthenticated ? 
-        <>
           <Container>
             <Router>
               <Header />
+              {this.props.auth0.isAuthenticated ? 
               <Routes>
                 <Route exact path="/" element={<BestBooks />}></Route>
                 <Route exact path="/About" element={<About />}></Route>
                 <Route exact path="/user" element={<Profile />}></Route>
               </Routes>
+               : <h2>Please Log in</h2>}
             </Router>
           </Container>
-        </> : <h2>Please Log in</h2>}
-        
+ 
         <Footer />
       </>
     )
